@@ -1,7 +1,5 @@
 package com.abdulwaheed.seasoninnpos.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -10,15 +8,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.abdulwaheed.seasoninnpos.BottomNavItem
-import com.abdulwaheed.seasoninnpos.HomeScreen
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.BottomNavItem
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.cashdrawer_tab.CashDrawerUI
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.home_tab.HomeUI
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.more_tab.MoreUI
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.orders_tab.OrdersUI
+import com.abdulwaheed.seasoninnpos.ui.bottom_navigation.products_tab.ProductsUI
+
 
 @Composable
 fun MainScreen() {
@@ -46,11 +52,20 @@ fun MainScreen() {
         ) {
 
             composable(BottomNavItem.Home.route) {
-                HomeScreen()
+                HomeUI()
             }
 
+            composable(BottomNavItem.CashDrawer.route) {
+                CashDrawerUI()
+            }
             composable(BottomNavItem.Orders.route) {
-                OrdersScreen()
+                OrdersUI()
+            }
+            composable(BottomNavItem.Products.route) {
+                ProductsUI()
+            }
+            composable(BottomNavItem.More.route) {
+                MoreUI()
             }
         }
     }
@@ -64,7 +79,10 @@ fun BottomBar(
 
     val items = listOf(
         BottomNavItem.Home,
+        BottomNavItem.CashDrawer,
         BottomNavItem.Orders,
+        BottomNavItem.Products,
+        BottomNavItem.More,
     )
 
     NavigationBar {
@@ -73,30 +91,18 @@ fun BottomBar(
                 selected = selectedRoute == item.route,
                 onClick = { onItemSelected(item.route) },
                 icon = { Icon(item.icon, contentDescription = item.route) },
-                label = { Text(item.title) }
+                label = {
+                    Text(
+                        stringResource(item.title),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp
+                    )
+                },
+                alwaysShowLabel = true
             )
         }
-    }
-}
-
-@Composable
-fun HomeScreen() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Home Screen")
-    }
-}
-
-@Composable
-fun OrdersScreen() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Orders Screen")
-    }
-}
-
-@Composable
-fun SettingsScreen() {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Settings Screen")
     }
 }
 
