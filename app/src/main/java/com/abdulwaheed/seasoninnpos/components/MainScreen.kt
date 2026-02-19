@@ -1,7 +1,6 @@
 package com.abdulwaheed.seasoninnpos.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -22,7 +21,7 @@ import com.abdulwaheed.seasoninnpos.BottomNavItem
 import com.abdulwaheed.seasoninnpos.HomeScreen
 
 @Composable
-fun MainScreen(innerPadding: PaddingValues) {
+fun MainScreen() {
 
     val navController = rememberNavController()
 
